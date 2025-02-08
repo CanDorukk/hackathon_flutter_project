@@ -1,0 +1,12 @@
+{
+  "title": "Hackathon Project",
+  "settings": "Settings",
+  "home": "Home",
+  "profile": "Profile",
+  "dark_theme": "Dark Theme",
+  "language": "Language",
+  "hello" : "Hello",
+  "login": "Login",
+  "registration_message": "Don't have an account ? Sign up now!",
+  "password": "Password"
+}

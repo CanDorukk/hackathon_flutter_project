@@ -1,0 +1,12 @@
+{
+  "title": "Hackathon Uygulaması",
+  "settings": "Ayarlar",
+  "home": "Ana Sayfa",
+  "profile": "Profil",
+  "dark_theme": "Koyu Tema",
+  "language": "Dil",
+  "hello": "Merhaba",
+  "login": "Giriş Yap",
+  "registration_message": "Henüz hesabınız yok mu ? Hemen üye olun!",
+  "password" : "Şifre"
+}
