@@ -1,0 +1,27 @@
+{
+  "title": "Hackathon Project",
+  "settings": "Settings",
+  "home": "Home",
+  "profile": "Profile",
+  "dark_theme": "Dark Theme",
+  "language": "Language",
+  "hello" : "Hello",
+  "login": "Login",
+  "loginization_message": "You are being directed to log in...",
+  "registration_message": "Don't have an account ? Sign up now!",
+  "password": "Password",
+  "register": "Register",
+  "logout": "Logout",
+  "logging_out": "Signing Out",
+  "logout_success": "Successfully logged out",
+  "campaign": "Campaigns",
+  "welcome": "Welcome",
+  "currency": "Currency",
+  "product": "Product",
+  "s_machine": "Steam Machine",
+  "s_mop": "Steam Mop",
+  "air_cleaner": "Air Cleaner",
+  "glass_cleaner": "Glass Cleaner"
+
+
+}
