@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen>{
   Widget build(BuildContext context) {
     final localManager = Provider.of<LocalManager>(context);
     return Scaffold(
-      appBar: AppBar(title: Text(localManager.translate("login*ğ"))),
+      appBar: AppBar(title: Text(localManager.translate("login"))),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

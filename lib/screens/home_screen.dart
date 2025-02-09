@@ -2,9 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathonproject/core/LocaleManager.dart';
 import 'package:hackathonproject/core/ThemeManager.dart';
+import 'package:hackathonproject/screens/campaing_pages.dart';
 import 'package:hackathonproject/screens/login_screen.dart';
+import 'package:hackathonproject/screens/product_card_page.dart';
 import 'package:hackathonproject/screens/proife_screen.dart';
-import 'package:hackathonproject/screens/settings_screen.dart';
 import 'package:hackathonproject/widget/bottom_nav_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -14,35 +15,49 @@ class HomeScreen extends StatefulWidget{
 }
 
 class _HomeScreenState extends State<HomeScreen>{
+
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
-    Center(child: Text('Ana Sayfa', style: TextStyle(fontSize: 24))),
+
+    ProductCardPage(),
+    CampaingPages(),
     ProfileScreen(),
-    SettingsScreen(),
+
+
   ];
   void _onItemTapped(int index) async{
-    if(index == 1){  // Profil ekranı seçildiğinde
+    final localManager = Provider.of<LocalManager>(context, listen: false); // 🔹 listen: false ekledik
+    if(index == 2){  // Profil ekranı seçildiğinde
       final currentUser = FirebaseAuth.instance.currentUser;
       if(currentUser == null){
-        // Eğer kullanıcı giriş yapmadıysa SnackBar göster
+        // Eğer kullanıcı giriş yapmadıysa SnackBar göster ve sonra LoginScreen'e yönlendir
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(('Lütfen Kayıt Olunuz')),
-            duration: Duration(seconds: 3),
+            content: Text(localManager.translate("loginization_message")),
+            duration: Duration(milliseconds: 1000),
           ),
         );
-      } else {
+
+        // Kullanıcıyı LoginScreen'e yönlendiriyoruz
+        Future.delayed(Duration(milliseconds: 1000), () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => LoginScreen()),
+          );
+        });
+      }else{
         setState(() {
           _selectedIndex = index;
         });
       }
-    } else {
+    }else{
       setState(() {
         _selectedIndex = index;
       });
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +71,6 @@ class _HomeScreenState extends State<HomeScreen>{
       ),
 
 
-      // 📌 Hamburger Menü (Drawer) Eklendi ve İçine Tema & Dil Seçimi Koyduk
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -108,24 +122,60 @@ class _HomeScreenState extends State<HomeScreen>{
               ),
             ),
             SizedBox(height: 16),
-            // 📌 Giriş Yap ve Kayıt Ol Butonları
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Giriş Yap Butonu
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
-                      );
-                    },
-                    child: Text(localManager.translate('login')),
+
+            // 📌 Giriş Yap & Çıkış Yap Butonu
+            StreamBuilder<User?>(
+              stream: FirebaseAuth.instance.authStateChanges(),
+              builder: (context, snapshot) {
+                final user = snapshot.data;
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      user == null
+                          ? ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => LoginScreen()),
+                          );
+                        },
+                        child: Text(localManager.translate('login')),
+                      )
+                          : ElevatedButton(
+                        onPressed: () async {
+                          // 1. "Çıkış yapılıyor..." mesajını göster
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(localManager.translate('logging_out')),
+                              duration: Duration(milliseconds: 1500), // 1.5 saniye
+                            ),
+                          );
+
+                          await Future.delayed(Duration(milliseconds: 1500));
+
+                          // 2. Firebase'den çıkış yap
+                          await FirebaseAuth.instance.signOut();
+
+                          setState(() {
+                            _selectedIndex = 0; // Ana Sayfa'ya dön
+                          });
+
+                          // 3. "Başarıyla çıkış yapıldı." mesajını göster
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(localManager.translate('logout_success')),
+                              duration: Duration(milliseconds: 1500), // 1.5 saniye
+                            ),
+                          );
+                        },
+                        child: Text(localManager.translate('logout')),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                );
+              },
             ),
           ],
         ),
@@ -135,20 +185,16 @@ class _HomeScreenState extends State<HomeScreen>{
 
 
 
-
       body: IndexedStack(
         index: _selectedIndex,
         children: [
-          Center(
-            child: Text(
-              localManager.translate('home'),
-              style: TextStyle(fontSize: 24),
-            ),
-          ),
 
           // ekranların açılma sırası aşşağıda
+          ProductCardPage(),
+          CampaingPages(),
           ProfileScreen(),
-          SettingsScreen(),
+
+
           // CrudScreen(),
         ],
       ),

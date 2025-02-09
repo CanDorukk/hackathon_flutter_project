@@ -38,6 +38,7 @@ dependencies:
   flutter_localization: ^0.3.1
   firebase_core: ^3.11.0
   firebase_auth: ^5.4.2
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:
@@ -58,6 +59,13 @@ flutter:
   assets:
     - assets/lang/tr.json
     - assets/lang/en.json
+    - assets/images/buharli.jpg
+    - assets/images/vakumlu.jpg
+    - assets/images/camsilme.jpg
+    - assets/images/camtemizleme.jpg
+    - assets/images/dyson.jpg
+    - assets/images/karcher.jpg
+    - assets/images/mob.jpg
 
 
   # The following line ensures that the Material Icons font is

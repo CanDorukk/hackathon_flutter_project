@@ -22,12 +22,12 @@ class BottomNavBar extends StatelessWidget{
               label: localManager.translate('home'),
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: localManager.translate('profile'),
+              icon: Icon(Icons.point_of_sale),
+              label: localManager.translate('campaign'),
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: localManager.translate('settings'),
+              icon: Icon(Icons.person),
+              label: localManager.translate('profile'),
           ),
         ]
     );
