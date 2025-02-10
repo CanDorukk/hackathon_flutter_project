@@ -1,10 +1,18 @@
 # hackathonproject
 
-A new Flutter project.
+Ev Eşyaları Kiralama! 🏠🔄
 
-## Getting Started
+## Öne Çıkan Özellikler:
 
-This project is a starting point for a Flutter application.
+✅ Türkçe & İngilizce Dil Desteği
+✅ Karanlık & Açık Tema Seçeneği 🌓
+✅ Firebase ile Güvenli Kullanıcı Girişi 
+
+Uygulama Özeti:
+
+Uygulamamızın amacı uygun fiyatlı ev eşyaları kiralamak üzerine kurulmuştur, kullanıcılar uygulamaya giriş yapmadan da ana sayfa ve promosyon kısmına göz gezdirebilirler.
+Giriş yapan kullanıcıların kendilerine özel bir profil sayfası mevcuttur, Uygulama içerisinde "Türkçe" ve "İngilzice" dil seçeneği ile globale hitap etmektedir.
+Siyah ve Beyaz tema seçenekleri ile istedikleri temayı seçip kullanabilirler.
 
 A few resources to get you started if this is your first Flutter project:
 
